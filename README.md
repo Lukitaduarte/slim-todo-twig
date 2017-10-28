@@ -10,8 +10,8 @@ A simple to-do list with the following features
 ### How was it done?
 
 I used the php Slim framework, with MVC standard and a layer of data
-for better abstraction, no ORM was used, only a PDO connection 
-oriented object. Twig was used with a template engine.
+for better abstraction, no ORM has been used, only a PDO connection 
+oriented object. Twig has been used with a template engine.
 
 * Slim Framework
 * Twig Template Engine

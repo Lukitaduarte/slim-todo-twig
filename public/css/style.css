@@ -1,0 +1,151 @@
+/*
+ * Base structure
+ */
+
+/* Move down content because we have a fixed navbar that is 3.5rem tall */
+body {
+    padding-top: 3.5rem;
+}
+
+.btn {
+    cursor: pointer;
+}
+
+/*
+ * Sidebar
+ */
+
+.navbar {
+    border-bottom: 1px solid #ccc;
+    background: #fff;
+}
+
+.sidebar {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1000;
+    overflow-x: hidden;
+    overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
+    background-color: #4693FF!important;
+}
+
+/* Sidebar navigation */
+.sidebar {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.sidebar .nav {
+    margin-bottom: 20px;
+}
+
+.sidebar .nav-item {
+    width: 100%;
+}
+
+.sidebar .nav-item + .nav-item {
+    margin-left: 0;
+}
+
+.sidebar .nav-link {
+    border-radius: 0;
+}
+
+/*
+ * Dashboard
+ */
+
+/* Placeholders */
+.placeholders {
+    padding-bottom: 3rem;
+}
+
+.placeholder img {
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
+}
+
+/*
+ * Timeline Reminder
+ */
+
+ul.timeline {
+    position: relative;
+    list-style-type: none;
+    padding-left: 180px;
+}
+ul.timeline:before {
+    position: absolute;
+    display: block;
+    left: 136px;
+    width: 8px;
+    height: 100%;
+    border-radius: 4px;
+    background-color: #0077bb;
+    content: ' ';
+}
+ul.timeline .event {
+    position: relative;
+    padding: 16px;
+    background: white;
+    border-radius: 2px;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 2px 1px -1px rgba(0, 0, 0, 0.12);
+    padding: 16px;
+    margin-bottom: 30px;
+}
+ul.timeline .event:before {
+    display: block;
+    position: absolute;
+    top: 30px;
+    left: -55px;
+    width: 30px;
+    height: 30px;
+    border: 6px solid #0077bb;
+    border-radius: 50%;
+    background-color: white;
+    box-shadow: 0 0 4px -1px rgba(0, 0, 0, 0.6);
+    content: ' ';
+}
+ul.timeline h3 {
+    font-size: 1.5em;
+    margin-top: 0;
+    margin-bottom: 10px;
+}
+ul.timeline .time {
+    position: absolute;
+    display: block;
+    width: 120px;
+    top: 35px;
+    left: -179px;
+    font-size: 0.9em;
+    text-align: right;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+ul.timeline .time > .glyphicon-time {
+    top: 2px;
+}
+ul.timeline .left-arrow:before {
+    position: absolute;
+    top: 30px;
+    left: -15px;
+    display: inline-block;
+    border-top: 15px solid transparent;
+    border-right: 15px solid #ddd;
+    border-left: 0 solid #ddd;
+    border-bottom: 15px solid transparent;
+    content: ' ';
+}
+ul.timeline .left-arrow:after {
+    position: absolute;
+    top: 30px;
+    left: -14px;
+    display: inline-block;
+    border-top: 15px solid transparent;
+    border-right: 15px solid #fff;
+    border-left: 0 solid #fff;
+    border-bottom: 15px solid transparent;
+    content: ' ';
+}

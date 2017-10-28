@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <title>To-do List - Category</title>
+
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div class="container-fluid">
+  <div class="row">
+    {% include 'layout/navbar.html' %}
+
+    <main class="col-sm-9 ml-sm-auto col-md-10" role="main">
+      {% include 'layout/sidebar.html' %}
+
+      <div class="row mt-4">
+        <div class="col-md-6 col-sm-12">
+          <h2>Category</h2>
+        </div>
+        <div class="col-md-6 col-sm-12">
+          <!-- CHAMA MODAL PARA ADICIONAR UMA NOVA CATEGORIA -->
+          <button type="button" class="btn btn-success float-right" data-toggle="modal" data-target="#newCategoryModal">
+            NEW CATEGORY
+          </button>
+        </div>
+      </div>
+      <hr>
+      <table class="table table-bordered">
+        <thead class="thead-default">
+        <tr>
+          <th>#</th>
+          <th>Color</th>
+          <th>Name</th>
+          <th>Options</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% if categories is iterable %}
+          {% for category in categories %}
+            <tr>
+              <td>{{ category.id }}</td>
+              <td>
+                <div style="width: 15px; height: 15px; border-radius: 5px; background: {{ category.color }}"></div>
+              </td>
+              <td>{{ category.category_name }}</td>
+              <td><a href="/category/{{ category.id }}/delete" class="btn btn-danger">Delete</a></td>
+            </tr>
+          {% endfor %}
+        {% else %}
+          <p class="text-secondary">No categories registered</p>
+        {% endif %}
+        </tbody>
+      </table>
+    </main>
+  </div>
+
+  <!-- MODAL NOVA CATEGORIA -->
+  <div class="modal fade" id="newCategoryModal" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
+       aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <form action="/category/new" method="post">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="modalLabel">New Category</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+
+            <div class="form-group">
+              <label>Category Name:</label>
+              <input type="text" name="category_name" class="form-control" required>
+            </div>
+            <div class="form-group">
+              <label>Category Color:</label>
+              <input type="color" name="color">
+            </div>
+
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary">Create Category</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<!-- jQuery first, then Tether, then Bootstrap JS. -->
+<script src="js/jquery-3.2.1.slim.min.js"></script>
+<script src="js/popper.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+</body>
+</html>

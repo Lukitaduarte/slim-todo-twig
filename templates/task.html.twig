@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <title>To-do List - Category</title>
+
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<div class="container-fluid">
+  <div class="row">
+    {% include 'layout/navbar.html' %}
+
+    <main class="col-sm-9 ml-sm-auto col-md-10" role="main">
+      {% include 'layout/sidebar.html' %}
+
+      <div class="row mt-4">
+        <div class="col-md-6 col-sm-12">
+          <h2>{{ task.task_date|date('d/m/y') }} - {{ task.task_title }}</h2>
+        </div>
+        <div class="col-md-6 col-sm-12">
+          <!-- CHAMA MODAL PARA ADICIONAR UMA NOVA CATEGORIA -->
+          <button type="button" class="btn btn-success float-right" data-toggle="modal" data-target="#newReminderModal">
+            NEW REMINDER
+          </button>
+        </div>
+      </div>
+      <hr>
+
+      <div class="container">
+        <ul class="timeline">
+          {% if reminder is iterable %}
+            {% for r in reminder %}
+              {{ r.id }}
+              <li class="event">
+                <div class="left-arrow"></div>
+                <div class="time">{{ r.reminder_hour }}</div>
+                <div class="description"><p>{{ r.reminder_text }}</p></div>
+              </li>
+            {% endfor %}
+          {% else %}
+            <p class="text-secondary">No reminders registered</p>
+          {% endif %}
+        </ul>
+      </div>
+    </main>
+  </div>
+
+  <!-- MODAL NOVA CATEGORIA -->
+  <div class="modal fade" id="newReminderModal" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
+       aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <form action="/reminder/new" method="post">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="modalLabel">New Reminder</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <input type="hidden" name="id_task" value="{{ task.id }}">
+            <div class="form-group">
+              <label>Reminder Hour:</label>
+              <input type="time" name="reminder_hour" class="form-control" required>
+            </div>
+            <div class="form-group">
+              <label>Reminder Description:</label>
+              <textarea name="reminder_text" class="form-control" required></textarea>
+            </div>
+
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary">Create Reminder</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<!-- jQuery first, then Tether, then Bootstrap JS. -->
+<script src="/js/jquery-3.2.1.slim.min.js"></script>
+<script src="/js/popper.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+</body>
+</html>

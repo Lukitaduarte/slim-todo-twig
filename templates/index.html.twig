@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <title>To-do List - Task</title>
+
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div class="container-fluid">
+  <div class="row">
+    {% include 'layout/navbar.html' %}
+
+    <main class="col-sm-9 ml-sm-auto col-md-10" role="main">
+
+      {% include 'layout/sidebar.html' %}
+      <div class="row mt-4">
+        <div class="col-md-3 col-sm-12">
+          <h2>Categories</h2>
+          <hr class="my-4">
+          <ul class="list-group">
+            {% if categories is iterable %}
+              {% for category in categories %}
+                <li class="list-group-item"
+                    style="border-left: 5px solid {{ category.color }};"> {{ category.category_name }}</li>
+              {% endfor %}
+            {% else %}
+              <p class="text-secondary">No categories registered</p>
+            {% endif %}
+          </ul>
+        </div>
+        <div class="col-md-9 col-sm-12">
+          <div class="row">
+            <div class="col-md-6 col-sm-12">
+              <h2>To-do </h2>
+            </div>
+            <div class="col-md-6 col-sm-12">
+              <!-- CHAMA MODAL PARA ADICIONAR UMA NOVA CATEGORIA -->
+              <button type="button" class="btn btn-success float-right" data-toggle="modal" data-target="#newTaskModal">
+                NEW TASK
+              </button>
+            </div>
+          </div>
+          <hr>
+          {% if uncompleted_task is iterable %}
+            {% for uncompleted in uncompleted_task %}
+              <div class="card mt-4" style="border-left: 5px solid {{ uncompleted.color }};">
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-md-3 col-sm-12">
+                      <p>Date: {{ uncompleted.task_date|date('d/m/y') }}</p>
+                    </div>
+                    <div class="col-md-4 col-sm-12 text-center">
+                      <p>Task: {{ uncompleted.task_title }}</p>
+                    </div>
+                    <div class="col-md-5 col-sm-12">
+                      <div class="btn-group float-right" role="group" aria-label="Options">
+                        <a href="/task/{{ uncompleted.id }}/view" class="btn btn-primary">View</a>
+                        <a href="/task/{{ uncompleted.id }}/completed" class="btn btn-success">Completed</a>
+                        <a href="/task/{{ uncompleted.id }}/delete" class="btn btn-danger">Delete</a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            {% endfor %}
+          {% else %}
+            <p class="text-secondary">No tasks registered</p>
+          {% endif %}
+
+          <div class="row mt-5">
+            <div class="col-md-6 col-sm-12">
+              <h2>Completed To-do </h2>
+            </div>
+            <div class="col-md-6 col-sm-12">
+
+            </div>
+          </div>
+          <hr>
+          {% if completed_task is iterable %}
+            {% for completed in completed_task %}
+              <div class="card mt-4" style="border-left: 5px solid {{ completed.color }};">
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-md-3 col-sm-12">
+                      <p>Date: {{ completed.task_date|date('d/m/y') }}</p>
+                    </div>
+                    <div class="col-md-4 col-sm-12 text-center">
+                      <p>Task: {{ completed.task_title }}</p>
+                    </div>
+                    <div class="col-md-5 col-sm-12">
+                      <div class="btn-group float-right" role="group" aria-label="Options">
+                        <a href="/task/{{ completed.id }}/view" class="btn btn-primary">View</a>
+                        <a href="/task/{{ completed.id }}/delete" class="btn btn-danger">Delete</a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            {% endfor %}
+          {% else %}
+            <p class="text-secondary">No tasks registered</p>
+          {% endif %}
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- MODAL NOVA CATEGORIA -->
+  <div class="modal fade" id="newTaskModal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <form action="/task/new" method="post">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="modalLabel">New Task</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+
+            <div class="form-group">
+              <label>Task Title:</label>
+              <input type="text" name="task_title" class="form-control" required>
+            </div>
+            <div class="form-group">
+              <label>Task Category:</label>
+              <select name="id_category" class="form-control">
+                {% for category in categories %}
+                  <option value="{{ category.id }}">{{ category.category_name }}</option>
+                {% endfor %}
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Task Date:</label>
+              <input type="date" name="task_date" class="form-control" required>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary">Create Task</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<!-- jQuery first, then Tether, then Bootstrap JS. -->
+<script src="js/jquery-3.2.1.slim.min.js"></script>
+<script src="js/popper.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+</body>
+</html>

@@ -1,6 +1,6 @@
 {
-    "name": "lucasippon/todo-list",
-    "description": "Criação de uma TO-DO LIST como desafio técnico para a Before.com.br",
+    "name": "lucasippon/slim-todo-twig",
+    "description": "A simple to-do list using Slim and Twig",
     "homepage": "http://github.com/Lucasippon",
     "authors": [
         {
